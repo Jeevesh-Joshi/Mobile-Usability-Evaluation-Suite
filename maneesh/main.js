@@ -4,29 +4,58 @@ let users = [
     name: "Maneesh",
     age: 21,
     gender: " Male",
-    tasks: ["1. login"],
+    tasks: ["1"],
   },
   {
     id: 2,
     name: "Gupta",
     age: 22,
     gender: " Male",
-    tasks: ["1. login"],
+    tasks: ["3"],
   },
   {
     id: 3,
     name: "alexa",
     age: 29,
     gender: " Female",
-    tasks: ["1. login"],
+    tasks: ["5"],
   },
 ];
 
+// Check All
+function check(checked = true) {
+  const cbs = document.querySelectorAll('input[name="tasks"]');
+  cbs.forEach((cb) => {
+    cb.checked = checked;
+  });
+}
+function checkAll(e) {
+  e.preventDefault();
+  check();
+  // reassign click event handler
+  this.onclick = uncheckAll;
+}
+function uncheckAll(e) {
+  e.preventDefault();
+  check(false);
+  // reassign click event handler
+  this.onclick = checkAll;
+}
+const btn = document.querySelector("#checkBtn");
+btn.onclick = checkAll;
+
+// Delete User
+let deleteUser = (index) => {
+  users.splice(index, 1);
+  console.log(`element deleted at index${index}`);
+  printData();
+};
+
+// Print data to the table
 let printData = () => {
   document.getElementById("data").innerHTML = "";
   let i = 0;
   users.map((x) => {
-    
     document.getElementById("data").innerHTML += `
         <tr>
         <td >${i + 1}</td>
@@ -34,6 +63,7 @@ let printData = () => {
         <td >${x.age}</td>
         <td >${x.gender}</td>
         <td >${x.tasks}</td>
+        <td > <button class="btn btn-outline-danger btn-sm" onClick="deleteUser(${i})"><i class="bi bi-trash"></i></button> </td>
         </tr>
         `;
     i += 1;
@@ -42,6 +72,7 @@ let printData = () => {
 };
 printData();
 
+// Get input from the form and add to the table
 let addData = (e) => {
   e.preventDefault();
   console.log("Add data");
@@ -61,7 +92,7 @@ let addData = (e) => {
   checkboxes.forEach((checkbox) => {
     tasks.push(checkbox.value);
   });
-  console.log(tasks)
+  console.log(tasks);
   let dataToAdd = {
     name,
     age,
@@ -69,10 +100,11 @@ let addData = (e) => {
     tasks,
   };
   if (name.length && age && tasks.length > 0) {
-    users.unshift(dataToAdd);
+    users.push(dataToAdd);
   } else {
     alert("Something is missing");
   }
+  document.getElementById("userDetails").reset();
   printData();
 };
 
