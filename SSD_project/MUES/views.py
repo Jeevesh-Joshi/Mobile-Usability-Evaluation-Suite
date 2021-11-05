@@ -6,4 +6,7 @@ from django.http import HttpResponse
 
 def index(request):
     # return HttpResponse("Hello inside app")
+    return render(request,"MUES/index.html")
+
+def dashboard(request):
     return render(request,"MUES/dashboard.html")
