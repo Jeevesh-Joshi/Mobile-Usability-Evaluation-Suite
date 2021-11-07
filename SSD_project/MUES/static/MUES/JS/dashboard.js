@@ -1,27 +1,5 @@
 let users = [
-  {
-    id: 1,
-    name: "Maneesh",
-    age: 21,
-    gender: " Male",
-    tasks: ["1"],
-  },
-  {
-    id: 2,
-    name: "Gupta",
-    age: 22,
-    gender: " Male",
-    tasks: ["3"],
-  },
-  {
-    id: 3,
-    name: "alexa",
-    age: 29,
-    gender: " Female",
-    tasks: ["5"],
-  },
 ];
-
 // Check All
 function check(checked = true) {
   const cbs = document.querySelectorAll('input[name="tasks"]');
@@ -52,30 +30,30 @@ let deleteUser = (index) => {
 };
 
 // Print data to the table
-let printData = () => {
-  document.getElementById("data").innerHTML = "";
-  let i = 0;
-  users.map((x) => {
-    document.getElementById("data").innerHTML += `
-        <tr>
-        <td >${i + 1}</td>
-        <td >${x.name}</td>
-        <td >${x.age}</td>
-        <td >${x.gender}</td>
-        <td >${x.tasks}</td>
-        <td > <button class="btn btn-outline-danger btn-sm" onClick="deleteUser(${i})"><i class="bi bi-trash"></i></button> </td>
-        </tr>
-        `;
-    i += 1;
-  });
+// let printData = () => {
+//   document.getElementById("data").innerHTML = "";
+//   let i = 0;
+//   users.map((x) => {
+//     document.getElementById("data").innerHTML += `
+//         <tr>
+//         <td >${i + 1}</td>
+//         <td >${x.name}</td>
+//         <td >${x.age}</td>
+//         <td >${x.gender}</td>
+//         <td >${x.tasks}</td>
+//         <td > <button class="btn btn-outline-danger btn-sm" onClick="deleteUser(${i})"><i class="bi bi-trash"></i></button> </td>
+//         </tr>
+//         `;
+//     i += 1;
+//   });
   // console.log("printdata");
-};
+// };
 printData();
 
 // Get input from the form and add to the table
 let addData = (e) => {
-  e.preventDefault();
-  console.log("Add data");
+  // e.preventDefault();
+  console.log("Added data");
   let name = document.getElementById("name").value;
   let age = parseInt(document.getElementById("age").value);
   let radiobts = document.querySelectorAll('input[name="gender"]');
@@ -108,4 +86,4 @@ let addData = (e) => {
   printData();
 };
 
-document.getElementById("s").addEventListener("click", addData);
+// document.getElementById("s").addEventListener("click", addData);

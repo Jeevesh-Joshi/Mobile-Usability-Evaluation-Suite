@@ -6,17 +6,17 @@
     <h1 class="text-center text-primary m-5">Mobile Usability Evaluation Suite</h1>
     <div>
       <h3 class="text-center mb-4">User Dashboard</h3>
-      <form id="userDetails" class="">
+      <form id="userDetails" class="rounded p-4 bg-dark text-light" method="post" action="dashboard">
+        {% csrf_token %}
         <div class="form-group"> 
           <label for="name">Full Name: </label>
-          <input type="text" class="form-control" placeholder="Full Name" aria-label="Full Name" id="name" />
+          <input type="text" class="form-control" name="username" placeholder="Full Name" aria-label="Full Name" id="name" />
         </div>
         <div class="form-group">
           <label for="age">Age: </label>
-          <input type="number" class="form-control" placeholder="Age" aria-label="Age" id="age" />
+          <input type="number" class="form-control" name="userage" placeholder="Age" aria-label="Age" id="age" />
         </div>
         <div class="form-group">
-          <!-- <span>Gender :</span> -->
           <label for="gender">Gender: </label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male" checked />
@@ -26,40 +26,30 @@
             <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female" />
             <label class="form-check-label" for="inlineRadio2">Female</label>
           </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="Others" />
+            <label class="form-check-label" for="inlineRadio2">Others</label>
+          </div>
         </div>
-        <span>Tasks :</span>
-        <button id="checkBtn" class="btn btn-sm btn-outline-primary my-3 p-2">Check / Uncheck All</button>
+        <label for="tasks">Tasks: </label>
+        <button id="checkBtn" class="btn btn-sm btn-primary my-3 p-2">Check / Uncheck All</button>
         <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input " name="tasks" type="checkbox" value="1" id="task1" />
-            <label class="form-check-label" for="task1"> Task 1 </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" name="tasks" type="checkbox" value="2" id="task2" />
-            <label class="form-check-label" for="task2"> Task 2 </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" name="tasks" type="checkbox" value="3" id="task3" />
-            <label class="form-check-label" for="task3"> Task 3 </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" name="tasks" type="checkbox" value="4" id="task4" />
-            <label class="form-check-label" for="task4"> Task 4 </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" name="tasks" type="checkbox" value="5" id="task5" />
-            <label class="form-check-label" for="task5"> Task 5 </label>
-          </div>
+          {% for task in tasks %}
+            <div class="form-check">
+              <input class="form-check-input " name="tasks" type="checkbox" value="{{task.id}}" id="task{{task.id}}" />
+              <label class="form-check-label" for="task{{task.id}}">{{task.name}}</label>
+            </div>
+          {% endfor %}
         </div>
-        <button id="s" type="submit" class="btn btn-success my-4">
+        <button id="" type="submit" class="btn btn-success my-4">
           Add User
         </button>
       </form>
     </div>
     <hr width="100%" class="bg-dark">
-    <div class="mt-2">
-      <h3 class="text-center mt-5">List Of Users</h3>
-      <table class="table table-warning table-striped table-hover table-sm my-5">
+    <div class="mt-2 bg-info rounded p-4 mb-5">
+      <h3 class="text-center text-light mt-5">List Of Users</h3>
+      <table class="table table-secondary table-striped table-hover table-sm my-5">
         <thead>
           <tr>
             <th scope="col-1">#</th>
@@ -67,10 +57,21 @@
             <th scope="col-1">Age</th>
             <th scope="col-3">Gender</th>
             <th scope="col-4">Tasks</th>
-            <th scope="col-4">Delete</th>
+            <!-- <th scope="col-4">Delete</th> -->
           </tr>
         </thead>
-        <tbody id="data"></tbody>
+        <tbody id="data">
+          {% for user in users %}
+            <tr>
+              <td scope="col-1">{{user.id}}</td>
+              <td scope="col-3">{{user.name}}</td>
+              <td scope="col-1">{{user.age}}</td>
+              <td scope="col-3">{{user.gender}}</td>
+              <td scope="col-4">{{user.tasks}}</td>
+              <!-- <td scope="col-4">Delete</td> -->
+            </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
 

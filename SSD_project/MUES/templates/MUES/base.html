@@ -20,7 +20,7 @@
 <body>
     {% load static %}
     <div class="container-fluid p-0 m-0">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: rgb(8 21 47);">
             <div class="container-fluid p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -42,10 +42,10 @@
                 </div>
             </div>
         </nav>
+        {% block body %}
+        {% endblock %}
     </div>
-    {% block body %}
-    {% endblock %}
-    <footer class="bg-dark text-light text-center text-lg-start">
+    <footer class="text-light text-center text-lg-start" style="background-color:  rgb(8 21 47);">
         <div class="text-center p-3">
             © 2021-22 Copyright : IIIT-H | Full-Stack Squad
         </div>
