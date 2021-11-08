@@ -2,15 +2,16 @@
 
 <body>
   {% block body %}
-  <div class="container pt-5">
-    <h1 class="text-center text-primary m-5">Mobile Usability Evaluation Suite</h1>
+  <div class="container py-5" style="background-color: rgb(171, 189, 248);">
+    <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
     <div>
-      <h3 class="text-center mb-4">User Dashboard</h3>
       <form id="userDetails" class="rounded p-4 bg-dark text-light" method="post" action="dashboard">
+        <h3 class="text-center mb-4">User Registration</h3>
         {% csrf_token %}
-        <div class="form-group"> 
+        <div class="form-group">
           <label for="name">Full Name: </label>
-          <input type="text" class="form-control" name="username" placeholder="Full Name" aria-label="Full Name" id="name" />
+          <input type="text" class="form-control" name="username" placeholder="Full Name" aria-label="Full Name"
+            id="name" />
         </div>
         <div class="form-group">
           <label for="age">Age: </label>
@@ -35,24 +36,24 @@
         <button id="checkBtn" class="btn btn-sm btn-primary my-3 p-2">Check / Uncheck All</button>
         <div class="form-group">
           {% for task in tasks %}
-            <div class="form-check">
-              <input class="form-check-input " name="tasks" type="checkbox" value="{{task.id}}" id="task{{task.id}}" />
-              <label class="form-check-label" for="task{{task.id}}">{{task.name}}</label>
-            </div>
+          <div class="form-check">
+            <input class="form-check-input " name="tasks" type="checkbox" value="{{task.id}}" id="task{{task.id}}" />
+            <label class="form-check-label" for="task{{task.id}}">{{task.name}}</label>
+          </div>
           {% endfor %}
         </div>
-        <button id="" type="submit" class="btn btn-success my-4">
+        <button id="s" type="submit" class="btn btn-success my-4">
           Add User
         </button>
       </form>
     </div>
-    <hr width="100%" class="bg-dark">
-    <div class="mt-2 bg-info rounded p-4 mb-5">
-      <h3 class="text-center text-light mt-5">List Of Users</h3>
-      <table class="table table-secondary table-striped table-hover table-sm my-5">
+    <hr width="100%" class="bg-black">
+    <div class="mt-2 bg-info rounded p-3">
+      <h3 class="text-center text-light mt-2">List of Users</h3>
+      <table class="table text-center table-primary table-sm mt-5 mb-0">
         <thead>
           <tr>
-            <th scope="col-1">#</th>
+            <th scope="col-1">ID</th>
             <th scope="col-3">Name</th>
             <th scope="col-1">Age</th>
             <th scope="col-3">Gender</th>
@@ -62,14 +63,20 @@
         </thead>
         <tbody id="data">
           {% for user in users %}
-            <tr>
-              <td scope="col-1">{{user.id}}</td>
-              <td scope="col-3">{{user.name}}</td>
-              <td scope="col-1">{{user.age}}</td>
-              <td scope="col-3">{{user.gender}}</td>
-              <td scope="col-4">{{user.tasks}}</td>
-              <!-- <td scope="col-4">Delete</td> -->
-            </tr>
+          <tr class="">
+            <td rowspan = "{{user.tasks.all|length|add:1}}" scope="col-1">{{user.id}}</td>
+            <td rowspan = "{{user.tasks.all|length|add:1}}" scope="col-3">{{user.name}}</td>
+            <td rowspan = "{{user.tasks.all|length|add:1}}" scope="col-1">{{user.age}}</td>
+            <td rowspan = "{{user.tasks.all|length|add:1}}" scope="col-2">{{user.gender}}</td>
+            <td scope="col-5" class="p-0">
+              {% for task in user.tasks.all %}
+                <tr>
+                  <td>{{task.name}}</td>
+                </tr>
+              {% endfor %}
+            </td>
+          <!-- <td scope="col-4">Delete</td> -->
+          </tr>
           {% endfor %}
         </tbody>
       </table>

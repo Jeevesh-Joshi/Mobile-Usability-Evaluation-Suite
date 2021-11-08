@@ -19,7 +19,7 @@
 
 <body>
     {% load static %}
-    <div class="container-fluid p-0 m-0">
+    <div class="container-fluid p-0 m-0" style="background-color: rgb(171, 189, 248);">
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: rgb(8 21 47);">
             <div class="container-fluid p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -39,6 +39,9 @@
                             <a class="nav-link" href="#">Analyse</a>
                         </li>
                     </ul>
+                    <span class="nav-item">
+                        <a class="nav-link text-danger" href="/../admin">Admin</a>
+                    </span>
                 </div>
             </div>
         </nav>
@@ -46,7 +49,7 @@
         {% endblock %}
     </div>
     <footer class="text-light text-center text-lg-start" style="background-color:  rgb(8 21 47);">
-        <div class="text-center p-3">
+        <div class="text-center p-2">
             © 2021-22 Copyright : IIIT-H | Full-Stack Squad
         </div>
     </footer>
