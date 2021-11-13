@@ -1,0 +1,37 @@
+{% extends 'MUES/base.html' %}
+
+<body>
+    {% block body %}
+    <div class="container-fluid text-dark p-0 m-0 pb-5 pt-5" style="background-color: rgb(171, 189, 248);">
+        <div class="container mt-5 p-0" style="background-color :rgb(171, 189, 248);">
+            <div class="container rounded p-0 m-0 bg-gradient d-flex flex-column align-items-center" style="background-color: #0d243e;">
+                <h1 class="my-5 text-center text-light">Welcome to Mobile Usability Evaluation Suite!</h1>
+                <img class="img-fluid rounded"
+                src="https://assets.justinmind.com/wp-content/uploads/2019/12/guide-user-testing.png" alt="">
+                <span class="lead text-justify my-5 px-3 text-light"> The purpose of this web-application is to test the usability of
+                    mobile applications by using laboratory-based usability testing. This testing method enables the testing
+                    of mobile applications by involving real users using real devices. In it, the observer has full control
+                    over the test and can easily set the tasks – thus enabling him/her to test all usability aspects.
+                </span>
+            </div>
+            <hr width="100%" class="bg-black">
+            <div class="container rounded p-0 m-0 bg-black d-flex flex-column align-items-center">
+                <img class="img-fluid rounded my-5" style="filter: invert(1);"
+                src="https://assets.justinmind.com/wp-content/uploads/2020/01/what-is-mobile-app-usability-testing.png"
+                alt="">
+            </div>
+            <hr width="100%" class="bg-black">
+            <div class="container rounded p-0 m-0 bg-gradient d-flex flex-column align-items-center" style="background-color: #1c0423">
+                <h2 class="mt-5 text-center text-light">Components of a Lab-based usability test </h2>
+                <span class="lead text-justify my-5 px-3 text-light">
+                    Lab-based usability testing involves the observation of test participants performing assigned tasks
+                    using a mobile device in a setup similar to the one shown below:
+                </span>
+                <img class="img-fluid rounded mb-5"
+                src="https://usabilitygeek.com/wp-content/uploads/2016/03/usability-testing-mobile-apps-setup.jpg"
+                alt="">
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
