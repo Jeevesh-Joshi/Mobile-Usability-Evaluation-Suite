@@ -1,0 +1,57 @@
+{% extends 'MUES/base.html' %}
+
+<body>
+    {% block body %}
+    <div class="container py-5">
+        <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
+        <div class="container bg-light text-black mt-5 py-2 rounded">
+            <h3 class="text-center my-3">Analyse Tasks</h3>
+
+            <div class="video_area mt-4">
+                <!-- <video width="100%" height="500" controls>
+                    <source src="https://www.youtube.com/embed/hwS8NIh-g0Y" type="video/mp4">
+                </video> -->
+                <iframe width="100%" height="500" src="https://www.youtube.com/embed/jTddky8cpsM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <form action="" class="was-validated my-4">
+                <div class="mb-3">
+                    <label class="py-1" for="Select_participant">Select Participant:</label>
+                    <select name = "selected_user" class="form-select" required aria-label="select example">
+                        {% for user in users %}
+                        <option value="{{user.id}}">{{user.name}}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="py-1" for="URL">Select Video:</label>
+                    <select class="form-select" required aria-label="select example">
+                        {% for user in users %}
+                        <option value="url1">URL1</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Add Notes</label>
+                    <textarea placeholder="Enter Some Valuable Notes" class="form-control is-invalid"
+                        id="exampleFormControlTextarea1" rows="3" required></textarea>
+                </div>
+                <input class="mt-2 btn btn-primary" type="submit" value="Add">
+            </form>
+        </div>
+        <hr>
+        <div class="container bg-dark text-light py-4 rounded">
+            <form action="" class="was-validated">
+                <label for="exampleInputEmail1" class="form-label">
+                    <h1>Send Email To Developer</h1>
+                </label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter Developer's Email" required>
+                <div id="emailHelp" class="form-text text-light">Send feedback to the Developer.</div>
+                <input class="mt-3 btn btn-danger" type="submit" value="Send">
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
