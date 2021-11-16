@@ -1,0 +1,62 @@
+{% extends 'MUES/base.html' %}
+
+<body>
+	{% block body %}
+	<div class="container py-5">
+		<h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
+
+		<div class="container bg-light text-black mt-5 py-2 rounded">
+			<div class="container">
+				<h3 class="text-center my-3">Recording</h3>
+
+				<div class="mb-3">
+					<label class="py-1" for="Select_participant">Select Participant:</label>
+					<select class="form-select" required aria-label="select example">
+						{% for user in users %}
+                        <option value="{{user.id}}">{{user.name}}</option>
+                        {% endfor %}
+					</select>
+				</div>
+
+				<div class="mb-5">
+					<label class="py-1" for="URL">Select Tasks:</label>
+					<select class="form-select" required aria-label="select example">
+						<option value="url1">URL1</option>
+						<option value="url2">URL2</option>
+						<option value="url3">URL3</option>
+						<option value="url4">URL4</option>
+					</select>
+				</div>
+			</div>
+			<div id="vid-recorder">
+				<h3 class="text-center my-3">Camera Output</h3>
+
+				<video class="mt-2 w-100" autoplay id="web-cam-container"
+					style="height: 30vw; background-color: black;">
+				</video>
+
+				<div class="p-3 mb-2 text-danger text-center" id="vid-record-status">
+					Click the "Start"
+					button to start recording
+				</div>
+
+				<div id="controlbtns" class="text-center">
+
+					<!-- This button will start the video recording -->
+					<button class="btn btn-primary" type="button" id="start-vid-recording" onclick="startRecording(this,
+				document.getElementById('stop-vid-recording'))">
+						Start
+					</button>
+
+					<!-- This button will stop the video recording -->
+					<button class="btn btn-success" type="button" id="stop-vid-recording" disabled onclick="stopRecording(this,
+				document.getElementById('start-vid-recording'))">
+						Stop
+					</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>

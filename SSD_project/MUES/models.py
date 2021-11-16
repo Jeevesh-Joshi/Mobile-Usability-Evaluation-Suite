@@ -4,7 +4,16 @@ from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
+class Projects(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.TextField()
+    tasks = models.ManyToManyField('Tasks')
+
+    def __str__(self):
+        return self.name
+
 class Tasks(models.Model):
+    project = models.ForeignKey(Projects,on_delete=CASCADE,related_name="pp")
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -17,6 +26,7 @@ class Users(models.Model):
         ('others', 'Others'),
     ]
     name = models.CharField(max_length=20)
+    project = models.ForeignKey(Projects,on_delete=CASCADE)
     age = models.IntegerField()
     gender = models.CharField(max_length=6,choices=GENDER,default='male')
     tasks = models.ManyToManyField(Tasks)

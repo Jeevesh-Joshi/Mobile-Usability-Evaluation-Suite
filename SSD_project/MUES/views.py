@@ -30,7 +30,7 @@ def recording(request):
     data = {"tasks":tasks, "users":users}
 
     if request.method == 'GET':
-        return render(request,"MUES/testing.html",data)
+        return render(request,"MUES/recording.html",data)
     else:
         # name = request.POST.get('username','default')
         # age = request.POST.get('userage','default')
