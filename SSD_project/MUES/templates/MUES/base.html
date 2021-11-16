@@ -13,14 +13,14 @@
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <!-- Icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-    
+
     <title>Mobile Usability Evaluation Suite</title>
 </head>
 
 <body>
     {% load static %}
     <div class="container-fluid p-0 m-0" style="background-color: rgb(171, 189, 248);">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: rgb(8 21 47);">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: rgb(8,21,47);">
             <div class="container-fluid p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -32,9 +32,21 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dashboard
+                            </a>
+                            <ul class="dropdown-menu" style="background-color: rgb(8,21,47);" aria-labelledby="navbarDropdown">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'user' %}">User Registration</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'project' %}">Project Registration</a>
+                                </li>
+                            </ul>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'recording' %}">Recording</a>
                         </li>
@@ -68,4 +80,7 @@
     crossorigin="anonymous"></script>
 <script src="{% static 'MUES/JS/dashboard.js' %}"></script>
 <script src="{% static 'MUES/JS/recording.js' %}"></script>
+{% block extra_js %}
+
+{% endblock extra_js %}
 </html>

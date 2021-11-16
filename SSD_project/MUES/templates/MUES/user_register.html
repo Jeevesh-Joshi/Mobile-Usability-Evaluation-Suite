@@ -1,0 +1,125 @@
+{% extends 'MUES/base.html' %}
+
+{% block body %}
+<div class="container py-5" style="background-color: rgb(171, 189, 248);">
+  <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
+  <div>
+    <form id="userDetails" class="rounded p-4 bg-dark text-light" method="post" action="user_register"
+      proj-names-url="{% url 'ajax_load_tasks' %}">
+      <h3 class="text-center mb-4">User Registration</h3>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Full Name: </label>
+        <input type="text" class="form-control" name="username" placeholder="Full Name" aria-label="Full Name"
+          id="name" />
+      </div>
+      <div class="form-group">
+        <label for="age">Age: </label>
+        <input type="number" class="form-control" name="userage" placeholder="Age" aria-label="Age" id="age" />
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender: </label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male" checked />
+          <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female" />
+          <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" id="inlineRadio3" value="Others" />
+          <label class="form-check-label" for="inlineRadio2">Others</label>
+        </div>
+      </div>
+      <div>
+        <label class="py-1" for="URL">Select Project:</label>
+        <select name ="projid" id="proj_name" class="form-select" aria-label="select example">
+          {% for proj in projects %}
+          <option value="{{proj.id}}">{{proj.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <label for="tasks">Tasks: </label>
+      <button id="checkBtn" class="btn btn-sm btn-primary my-3 p-2">Check / Uncheck All</button>
+
+      <!-- Dependent dropdown -->
+      <div id="projtasks" class="form-group">
+
+      </div>
+
+      <button id="s" type="submit" class="btn btn-success my-4">
+        Add User
+      </button>
+    </form>
+  </div>
+  <hr width="100%" class="bg-black">
+  <div class="mt-2 bg-info rounded p-3">
+    <h3 class="text-center text-light mt-2">List of Users</h3>
+    <table class="table text-center table-primary table-sm mt-5 mb-0">
+      <thead>
+        <tr>
+          <th scope="col-1">ID</th>
+          <th scope="col-3">Name</th>
+          <th scope="col-1">Project</th>
+          <th scope="col-1">Age</th>
+          <th scope="col-3">Gender</th>
+          <th scope="col-4">Tasks</th>
+          <!-- <th scope="col-4">Delete</th> -->
+        </tr>
+      </thead>
+      <tbody id="data">
+        {% for user in users %}
+        <tr class="">
+          <td rowspan="{{user.tasks.all|length|add:1}}" scope="col-1">{{user.id}}</td>
+          <td rowspan="{{user.tasks.all|length|add:1}}" scope="col-3">{{user.name}}</td>
+          <td rowspan="{{user.tasks.all|length|add:1}}" scope="col-3">{{user.project}}</td>
+          <td rowspan="{{user.tasks.all|length|add:1}}" scope="col-1">{{user.age}}</td>
+          <td rowspan="{{user.tasks.all|length|add:1}}" scope="col-2">{{user.gender}}</td>
+          <td scope="col-5" class="p-0">
+            {% for task in user.tasks.all %}
+        <tr>
+          <td>{{task.name}}</td>
+        </tr>
+        {% endfor %}
+        </td>
+        <!-- <td scope="col-4">Delete</td> -->
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  var project = $('#proj_name');
+  var url = $("#userDetails").attr("proj-names-url");
+  var projid = $(project).val();  // get the selected programming ID from the HTML input
+  $.ajax({                       // initialize an AJAX request
+    url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+    data: {
+      'project': projid       // add the programming id to the GET parameters
+    },
+    success: function (data) {   // `data` is the return of the `load_courses` view function
+      $("#projtasks").html(data);  // replace the contents of the course input with the data that came from the server
+    }
+  });
+
+  $("#proj_name").change(function () {
+    var url = $("#userDetails").attr("proj-names-url");  // get the url of the `load_courses` view
+    var projid = $(this).val();  // get the selected programming ID from the HTML input
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+      data: {
+        'project': projid       // add the programming id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_courses` view function
+        $("#projtasks").html(data);  // replace the contents of the course input with the data that came from the server
+      }
+    });
+  });
+</script>
+{% endblock extra_js %}
+
+{% endblock %}

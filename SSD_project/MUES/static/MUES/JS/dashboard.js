@@ -22,7 +22,17 @@ const btn = document.querySelector("#checkBtn");
 btn.onclick = checkAll;
 
 // Get input from the form and add to the table
-let addData = (e) => {
+let addUser = (e) => {
+  let pname = document.getElementById("pname").value;
+  let desc = document.getElementById("descr").value;
+  let ptasks = document.getElementById("ptasks").value;
+  if(!(pname.length && desc.length && ptasks.length)){
+    e.preventDefault();
+    alert("Incomplete Project form!");
+  }
+};
+
+let addProject = (e) => {
   let name = document.getElementById("name").value;
   let age = parseInt(document.getElementById("age").value);
   let checkboxes = document.querySelectorAll('input[name="tasks"]:checked');
@@ -32,8 +42,10 @@ let addData = (e) => {
   });
   if(!(name.length && age && tasks.length)){
     e.preventDefault();
-    alert("Incomplete form!");
+    alert("Incomplete User form!");
   }
 };
 
-document.getElementById("s").addEventListener("click", addData);
+document.getElementById("s").addEventListener("click", addUser);
+
+document.getElementById("p").addEventListener("click", addProject);

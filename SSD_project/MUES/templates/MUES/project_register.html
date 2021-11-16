@@ -1,0 +1,34 @@
+{% extends 'MUES/base.html' %}
+
+{% block body %}
+<div class="container py-5" style="background-color: rgb(171, 189, 248);">
+    <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
+    <div>
+        <form id="projectDetails" class="rounded bg-primary p-4 text-light" method="post" action="project_register">
+            <h3 class="text-center mb-4">Project Registration</h3>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="pname">Project Name: </label>
+                <input type="text" class="form-control" name="projectname" placeholder="Project Name"
+                    aria-label="Project Name" id="pname" />
+            </div>
+            <div class="form-group">
+                <label for="descr" class="form-label">Project Description</label>
+                <textarea class="form-control" name="desc" placeholder="Project Description" id="descr"
+                    rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="ptasks" class="form-label">Project Tasks</label>
+                <textarea class="form-control" name="projtasks" placeholder="Add multiple tasks comma separated" id="ptasks"
+                    rows="4"></textarea>
+                <p><small class="text-light">Ensure tasks are comma separated.</small></p>
+            </div>
+            <button id="p" type="submit" class="btn btn-success my-4">
+                Add Project
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

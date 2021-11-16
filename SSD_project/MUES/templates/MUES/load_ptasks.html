@@ -1,0 +1,7 @@
+{% for task in proj.tasks.all %}
+    <div class="form-check">
+        <input class="form-check-input " name="tasks" type="checkbox" value="{{task.id}}" id="task{{task.id}}" />
+        <label class="form-check-label" for="task{{task.id}}">{{task.name}}</label>
+    </div>
+{% endfor %}
+
