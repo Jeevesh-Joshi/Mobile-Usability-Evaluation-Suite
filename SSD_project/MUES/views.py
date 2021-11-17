@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from MUES.models import Tasks,Users,Videos,Projects
+from MUES.recorders import VideoCamera
+from django.http import JsonResponse, StreamingHttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
+video_camera = None
+global_frame = None
 
 def index(request):
     return render(request,"MUES/index.html")
@@ -94,3 +100,46 @@ def testing(request):
         # user.save()
         # user.tasks.add(*tasks)
         return render(request,"MUES/testing.html",data)
+
+# /////////////////////////////////
+
+def camera(request):
+    return render(request,'MUES/camera.html')
+
+@csrf_exempt
+def record_status(request):
+    if request.method == 'POST':
+        global video_camera 
+        if video_camera == None:
+            video_camera = VideoCamera()
+        
+        print("*********************\n",request.body)
+        jsons = json.loads(request.body)
+
+        status = jsons['status']
+
+        if status == "true":
+            video_camera.start_record()
+            return JsonResponse({"result":"started"})
+        else:
+            video_camera.stop_record()
+            return JsonResponse({"result":"stopped"})
+
+def video_stream():
+    global video_camera 
+    global global_frame
+
+    if video_camera == None:
+        video_camera = VideoCamera()
+        
+    while True:
+        frame = video_camera.get_frame()
+
+        if frame != None:
+            global_frame = frame
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        else:
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + global_frame + b'\r\n\r\n')
+
+def video_viewer(request):
+    return StreamingHttpResponse(video_stream())

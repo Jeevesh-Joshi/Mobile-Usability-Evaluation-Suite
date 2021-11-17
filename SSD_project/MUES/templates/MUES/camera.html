@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Streaming Video Recorder</title>
+</head>
+<body>
+  {% load static %}
+
+  <h1>Streaming Video Recorder</h1>
+  <div id="recorder">
+    <button id="record">Record</button>
+    <button id="stop">Stop</button>
+    <a id="download"></a>
+  </div>
+  <img id="video" src="{% url 'video_viewer' %}">
+<script src="{% static 'MUES/JS/reorder.js' %}"></script>
+
+</body>
+</html>
