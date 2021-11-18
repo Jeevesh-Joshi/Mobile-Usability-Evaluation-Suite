@@ -1,0 +1,15 @@
+{% extends 'MUES/base.html' %}
+
+<body>
+  {% block body %}
+
+  <h1>Streaming Video Recorder</h1>
+  <div id="recorder">
+    <button id="record">Record</button>
+    <button id="stop">Stop</button>
+    <a id="download"></a>
+  </div>
+  <img id="video" src="{% url 'video_viewer' %}">
+  {% endblock %}
+
+</body>
