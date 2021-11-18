@@ -1,6 +1,8 @@
 console.log("here");
 var buttonRecord = document.getElementById("record");
 var buttonStop = document.getElementById("stop");
+var downloadLink = document.getElementById("download");
+downloadLink.style.display = "none";
 
 buttonStop.disabled = true;
 
@@ -12,7 +14,7 @@ buttonRecord.onclick = function(event) {
     buttonStop.disabled = false;
     
     // disable download link
-    var downloadLink = document.getElementById("download");
+    
     downloadLink.text = "";
     downloadLink.href = "";
 
@@ -30,6 +32,7 @@ buttonRecord.onclick = function(event) {
 
 buttonStop.onclick = function() {
     console.log("stop");
+    downloadLink.style.display = "inline";
 
     buttonRecord.disabled = false;
     buttonStop.disabled = true;    
@@ -41,8 +44,7 @@ buttonStop.onclick = function() {
             // alert(xhr.responseText);
 
             // enable download link
-            var downloadLink = document.getElementById("download");
-            downloadLink.text = "Download Video";
+            downloadLink.text = "Save";
             downloadLink.href = "/static/video.avi";
         }
     }
@@ -50,3 +52,7 @@ buttonStop.onclick = function() {
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({ status: "false" }));
 };
+
+downloadLink.onclick = function () {
+    downloadLink.style.display = "none";
+}

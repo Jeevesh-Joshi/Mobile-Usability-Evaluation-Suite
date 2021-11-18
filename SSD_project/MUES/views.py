@@ -113,7 +113,6 @@ def record_status(request):
         if video_camera == None:
             video_camera = VideoCamera()
         
-        print("*********************\n",request.body)
         jsons = json.loads(request.body)
 
         status = jsons['status']
@@ -134,7 +133,6 @@ def video_stream():
         
     while True:
         frame = video_camera.get_frame()
-
         if frame != None:
             global_frame = frame
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
@@ -142,4 +140,4 @@ def video_stream():
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + global_frame + b'\r\n\r\n')
 
 def video_viewer(request):
-    return StreamingHttpResponse(video_stream())
+    return StreamingHttpResponse(video_stream(), content_type="multipart/x-mixed-replace; boundary=frame")
