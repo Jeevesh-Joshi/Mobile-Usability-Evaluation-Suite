@@ -30,10 +30,9 @@
 			</div>
 			<div id="vid-recorder">
 				<h3 class="text-center my-3">Camera Output</h3>
-
-				<video class="mt-2 w-100" autoplay id="web-cam-container"
-					style="height: 30vw; background-color: black;">
-				</video>
+				<img id="video"  class="mt-2 w-100" style="height: 30vw;" src="{% url 'video_viewer' %}">
+				<!-- <video src="{% url 'video_viewer' %}" style="height: 30vw; background-color: black;"> -->
+				<!-- </video> -->
 
 				<div class="p-3 mb-2 text-danger text-center" id="vid-record-status">
 					Click the "Start"
@@ -43,17 +42,16 @@
 				<div id="controlbtns" class="text-center">
 
 					<!-- This button will start the video recording -->
-					<button class="btn btn-primary" type="button" id="start-vid-recording" onclick="startRecording(this,
-				document.getElementById('stop-vid-recording'))">
+					<button class="btn btn-primary" type="button" id="record">
 						Start
 					</button>
 
 					<!-- This button will stop the video recording -->
-					<button class="btn btn-success" type="button" id="stop-vid-recording" disabled onclick="stopRecording(this,
-				document.getElementById('start-vid-recording'))">
+					<button class="btn btn-success" type="button" id="stop">
 						Stop
 					</button>
 
+					<a class="btn btn-danger" id="download"></a>
 				</div>
 			</div>
 		</div>
