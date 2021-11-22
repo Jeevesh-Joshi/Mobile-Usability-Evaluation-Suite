@@ -1,36 +1,33 @@
 {% extends 'MUES/base.html' %}
 
-<body>
-	{% block body %}
-	<div class="container py-5">
-		<h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
+{% block body %}
+<div class="container py-5">
+	<h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
 
-		<div class="container bg-light text-black mt-5 py-2 rounded">
+	<div class="container bg-light text-black mt-5 py-2 rounded">
+		<form id="recDetails" class="p-0 m-0" method="post" action="recording" u-names-url="{% url 'ajax_load_utasks' %}">
+            {% csrf_token %}
+		
 			<div class="container">
 				<h3 class="text-center my-3">Recording</h3>
-
 				<div class="mb-3">
 					<label class="py-1" for="Select_participant">Select Participant:</label>
-					<select class="form-select" required aria-label="select example">
+					<select id="uname" class="form-select" required aria-label="select example">
 						{% for user in users %}
-                        <option value="{{user.id}}">{{user.name}}</option>
-                        {% endfor %}
+						<option value="{{user.id}}" data-uname="{{user.name}}">{{user.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 
 				<div class="mb-5">
 					<label class="py-1" for="URL">Select Tasks:</label>
-					<select class="form-select" required aria-label="select example">
-						<option value="url1">URL1</option>
-						<option value="url2">URL2</option>
-						<option value="url3">URL3</option>
-						<option value="url4">URL4</option>
+					<select id="utasks" class="form-select" required aria-label="select example">
 					</select>
 				</div>
 			</div>
 			<div id="vid-recorder">
 				<h3 class="text-center my-3">Camera Output</h3>
-				<img id="video"  class="mt-2 w-100" style="height: 30vw;" src="{% url 'video_viewer' %}">
+				<img id="video" class="mt-2 w-100" style="height: 30vw;" src="{% url 'video_viewer' %}">
 				<!-- <video src="{% url 'video_viewer' %}" style="height: 30vw; background-color: black;"> -->
 				<!-- </video> -->
 
@@ -51,10 +48,43 @@
 						Stop
 					</button>
 
-					<a class="btn btn-danger" id="download"></a>
+					<!-- <a type="submit" class="btn btn-danger" id="download"></a> -->
+					<button type="submit" class="btn btn-danger" id="download"></button>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-	{% endblock %}
-</body>
+</div>
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	var user = $('#uname');
+	var url = $("#recDetails").attr("u-names-url");
+	var uid = $(uname).val();  // get the selected programming ID from the HTML input
+	$.ajax({                       // initialize an AJAX request
+		url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+		data: {
+			'uid': uid       // add the programming id to the GET parameters
+		},
+		success: function (data) {   // `data` is the return of the `load_courses` view function
+			$("#utasks").html(data);  // replace the contents of the course input with the data that came from the server
+		}
+	});
+
+	$("#uname").change(function () {
+		var url = $("#recDetails").attr("u-names-url");  // get the url of the `load_courses` view
+		var uid = $(uname).val();  // get the selected programming ID from the HTML input
+		$.ajax({                       // initialize an AJAX request
+			url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+			data: {
+				'uid': uid        // add the programming id to the GET parameters
+			},
+			success: function (data) {   // `data` is the return of the `load_courses` view function
+				$("#utasks").html(data);  // replace the contents of the course input with the data that came from the server
+			}
+		});
+	});
+</script>
+{% endblock extra_js %}
+
+{% endblock %}

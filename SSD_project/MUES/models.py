@@ -38,7 +38,7 @@ class Users(models.Model):
 class Videos(models.Model):
     user = models.ForeignKey(Users,on_delete=CASCADE)
     task = models.ForeignKey(Tasks,on_delete=CASCADE)
-    path = models.CharField(max_length=50)
+    path = models.CharField(max_length=500)
 
     def __str__(self):
         return self.user.name

@@ -72,16 +72,16 @@ def recording(request):
 
     if request.method == 'GET':
         return render(request,"MUES/recording.html",data)
-    else:
-        # name = request.POST.get('username','default')
-        # age = request.POST.get('userage','default')
-        # gender = request.POST.get('gender','default')
-        # tasks = request.POST.getlist('tasks','default')
-        # # tasksdb = Tasks.objects.filter(id__in=tasks)
-        # user = Users(name=name,age=age,gender=gender)
-        # user.save()
-        # user.tasks.add(*tasks)
+    if request.method == 'POST':
+        # u_id = request.POST.get('uname')
+        # t_id = request.POST.get('utasks')
         return render(request,"MUES/recording.html",data)
+
+def load_utasks(request):
+    u_id = request.GET.get('uid')
+    user = Users.objects.filter(id=u_id)[0]
+    data = {"user":user}
+    return render(request, 'MUES/load_utasksrecording.html', data)
 
 def testing(request):
     tasks = Tasks.objects.values()
@@ -101,6 +101,14 @@ def testing(request):
         # user.tasks.add(*tasks)
         return render(request,"MUES/testing.html",data)
 
+def load_videos(request):
+    u_id = request.GET.get('uid')
+    t_id = request.GET.get('tid')
+    print(Videos.objects.all()[0])
+    video = Videos.objects.filter(user__id=u_id,task__id=t_id)
+    print(video)
+    data = {"video":video}
+    return render(request, 'MUES/load_testingvideos.html', data)
 # /////////////////////////////////
 
 def camera(request):
@@ -116,12 +124,19 @@ def record_status(request):
         jsons = json.loads(request.body)
 
         status = jsons['status']
-
         if status == "true":
-            video_camera.start_record()
+            # video_name = request.POST.get('hiddenValue','NAN')
+            vname = jsons["vname"]
+            video_camera.start_record(vname)
             return JsonResponse({"result":"started"})
         else:
             video_camera.stop_record()
+            print(jsons)
+            path = "MUES/static/Recordings/"+jsons["vname"]+".avi"
+            user = Users.objects.filter(id=jsons["uid"])[0]
+            task = Tasks.objects.filter(id=jsons["tid"])[0]
+            video = Videos(user=user,task=task,path=path)
+            video.save()
             return JsonResponse({"result":"stopped"})
 
 def video_stream():

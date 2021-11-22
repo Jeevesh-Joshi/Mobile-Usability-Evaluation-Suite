@@ -1,0 +1,4 @@
+{% for task in user.tasks.all %}
+    <option name="tasks" value="{{task.id}}" data-tname="{{task.name}}">{{task.name}}</option>
+{% endfor %}
+
