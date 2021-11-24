@@ -2,20 +2,20 @@
 {% block body %}
 <div class="container py-5">
     <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
-    <div class="container bg-light text-black mt-5 py-2 rounded">
+    <div class="container bg-secondary bg-gradient text-light mt-5 py-2 rounded">
         <h3 class="text-center my-3">Feedback</h3>
         <form action="send_mail" method="post" class="was-validated">
             {% csrf_token %}
             <label for="proj" class="form-label">Project Name:</label>
-            <select id="proj" name="proj_name" class="form-select" required aria-label="select example">
+            <select id="proj" name="proj" class="form-select" required aria-label="select example">
                 {% for proj in projects %}
-                <option value="{{user.id}}">{{proj.name}}</option>
+                <option value="{{proj.id}}">{{proj.name}}</option>
                 {% endfor %}
             </select>
             <label for="mail" class="form-label mt-2">Email Address:</label>
-            <input type="text" class="form-control" id="mail" aria-describedby="emailHelp"
+            <input name="email" type="email" class="form-control" id="mail" aria-describedby="emailHelp"
                 placeholder="Enter Developer's Email" required>
-            <div id="emailHelp" class="form-text text-dark">Send feedback to the Developer.</div>
+            <div class="form-text text-light">Send feedback to the Developer.</div>
             <input class="my-2 btn btn-danger" type="submit" value="Send">
         </form>
     </div>

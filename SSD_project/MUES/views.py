@@ -3,7 +3,8 @@ from MUES.models import Tasks,Users,Videos,Projects
 from MUES.recorders import VideoCamera
 from django.http import JsonResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+import json, smtplib
+from django.core import serializers
 
 # Create your views here.
 video_camera = None
@@ -93,11 +94,12 @@ def testing(request):
     elif request.method == 'POST':
         uid = request.POST.get('selected_user','default')
         problems = request.POST.get('problems','default')
-        # user = Users.objects.filter(id==uid)
-        # user.problems = problems
-        # user.save()
-        print("here")
-        print(uid,problems)
+        user = Users.objects.filter(id=uid)[0]
+        previous = user.problems
+        if previous:
+            problems = previous + "," + problems
+        user.problems = problems
+        user.save()
         return render(request,"MUES/testing.html",data)
 
 def load_videos(request):
@@ -113,10 +115,33 @@ def send_mail(request):
     if request.method == "GET":
         return render(request, 'MUES/send_mail.html',data)
     else:
-        print("here")
+        pid = request.POST.get('proj')
+        email = request.POST.get('email')
+        project = Projects.objects.filter(id = pid)
+        users = Users.objects.filter(project__id = pid)
+        jsons = json.loads(serializers.serialize('json', users))
+        db = {'users_db':[]}
+        for i in range(len(jsons)):
+            db['users_db'].append(jsons[i]['fields'])
+            
+        with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+            # <EMAIL> <PASSWORD>
+            smtp.login('mues.iiith@gmail.com','ssd@fullstack')
+
+            subject='Evaluation Feedback'
+            body=db
+
+            msg=f'Subject: {subject}\n\n{body}'
+            
+            # <SENDER EMAIL> <RECEIVER EMAIL> <MESSAGE>
+            smtp.sendmail('mues.iiith@gmail.com',email,msg)
+
         return render(request, 'MUES/send_mail.html',data)
 
-# /////////////////////////////////
+# /////////////////// Recording part //////////////
 
 def camera(request):
     return render(request,'MUES/camera.html')
