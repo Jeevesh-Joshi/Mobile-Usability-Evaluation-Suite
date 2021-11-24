@@ -90,25 +90,32 @@ def testing(request):
 
     if request.method == 'GET':
         return render(request,"MUES/testing.html",data)
-    else:
-        # name = request.POST.get('username','default')
-        # age = request.POST.get('userage','default')
-        # gender = request.POST.get('gender','default')
-        # tasks = request.POST.getlist('tasks','default')
-        # # tasksdb = Tasks.objects.filter(id__in=tasks)
-        # user = Users(name=name,age=age,gender=gender)
+    elif request.method == 'POST':
+        uid = request.POST.get('selected_user','default')
+        problems = request.POST.get('problems','default')
+        # user = Users.objects.filter(id==uid)
+        # user.problems = problems
         # user.save()
-        # user.tasks.add(*tasks)
+        print("here")
+        print(uid,problems)
         return render(request,"MUES/testing.html",data)
 
 def load_videos(request):
     u_id = request.GET.get('uid')
     t_id = request.GET.get('tid')
-    print(Videos.objects.all()[0])
     video = Videos.objects.filter(user__id=u_id,task__id=t_id)
-    print(video)
     data = {"video":video}
     return render(request, 'MUES/load_testingvideos.html', data)
+
+def send_mail(request):
+    projects = Projects.objects.all()
+    data = {"projects":projects}
+    if request.method == "GET":
+        return render(request, 'MUES/send_mail.html',data)
+    else:
+        print("here")
+        return render(request, 'MUES/send_mail.html',data)
+
 # /////////////////////////////////
 
 def camera(request):
@@ -132,7 +139,7 @@ def record_status(request):
         else:
             video_camera.stop_record()
             print(jsons)
-            path = "MUES/static/Recordings/"+jsons["vname"]+".avi"
+            path = "MUES/static/Recordings/"+jsons["vname"]+".mp4"
             user = Users.objects.filter(id=jsons["uid"])[0]
             task = Tasks.objects.filter(id=jsons["tid"])[0]
             video = Videos(user=user,task=task,path=path)

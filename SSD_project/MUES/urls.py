@@ -12,6 +12,8 @@ urlpatterns = [
     path("recording", views.recording, name='recording'),
     path('load_utasks', views.load_utasks, name='ajax_load_utasks'),
 
+    path('send_mail', views.send_mail, name='mail'),
+
     path("camera", views.camera, name='camera'),
     path("record_status", views.record_status, name='record_status'),
     path("video_viewer", views.video_viewer, name='video_viewer'),

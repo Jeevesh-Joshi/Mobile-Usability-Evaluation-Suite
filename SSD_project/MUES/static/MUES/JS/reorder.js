@@ -55,8 +55,8 @@ buttonStop.onclick = function() {
             // enable download link
             video_name = token1+"_"+token2;
             downloadLink.innerHTML = "Save";
-            // downloadLink.href = "/static/video_name.avi";
-            downloadLink.href = `/static/Recordings/${video_name}.avi`;
+            // downloadLink.href = "/static/video_name.mp4";
+            downloadLink.href = `MUES/static/Recordings/${video_name}.mp4`;
         }
     }
     xhr.open("POST", "/record_status");
