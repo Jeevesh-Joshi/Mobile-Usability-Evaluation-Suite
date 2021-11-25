@@ -1,17 +1,18 @@
 {% extends 'MUES/base.html' %}
 {% block body %}
 <div class="container py-5">
+    {% load static %}
     <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
     <div class="container bg-light text-black mt-5 py-2 rounded">
         <h3 class="text-center my-3">Analyse Tasks</h3>
 
         <div id="vplay" class="video_area mt-4">
             <!-- <video width="100%" height="500" controls>
-                    <source src="https://www.youtube.com/embed/hwS8NIh-g0Y" type="video/mp4">
-                </video> -->
-            <iframe width="100%" height="500" src="MUES/../static/Recordings/file_example_MP4_640_3MG.mp4" frameborder="0"
+                    <source src="{% static 'Recodings/Jeevesh_Logout.webm' %}" type="video/webm">
+                </video>-->
+            <iframe width="100%" height="500" src="MUES/../static/Recordings/Yash_Login.mp4" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+                allowfullscreen></iframe> 
         </div>
         <form action="testing" method="post" id="recDetails" class="my-4" u-names-url="{% url 'ajax_load_utasks' %}" video-path-url="{% url 'ajax_load_videos' %}">
             {% csrf_token %}
@@ -43,14 +44,9 @@
 {% block extra_js %}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    let user = $('#uname');
-    let task = $('#utasks');
     let url1 = $("#recDetails").attr("u-names-url");
     let url2 = $("#recDetails").attr("video-path-url"); 
-    let uid = $(user).val();  // get the selected programming ID from the HTML input
-    let tid = $(task).val();
-    console.log("data here ",uid,tid);
-    console.log(task);
+    let uid = $("#uname").val();  // get the selected programming ID from the HTML input
     $.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/load-courses/)
         data: {
@@ -58,39 +54,50 @@
         },
         success: function (data) {   // `data` is the return of the `load_courses` view function
             $("#utasks").html(data);  // replace the contents of the course input with the data that came from the server
+            $.ajax({                       // initialize an AJAX request
+                url: url2,                    // set the url of the request (= localhost:8000/load-courses/)
+                data: {
+                    'uid': uid,
+                    'tid': $("#utasks").val()        // add the programming id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_courses` view function
+                    $("#vplay").html(data);  // replace the contents of the course input with the data that came from the server
+                }
+            });
         }
     });
-
-    // $.ajax({                       // initialize an AJAX request
-    //     url: url2,                    // set the url of the request (= localhost:8000/load-courses/)
-    //     data: {
-    //         'uid': uid,
-    //         'tid': tid        // add the programming id to the GET parameters
-    //     },
-    //     success: function (data) {   // `data` is the return of the `load_courses` view function
-    //         $("#vplay").html(data);  // replace the contents of the course input with the data that came from the server
-    //     }
-    // });
-
-
+    
     $("#uname").change(function () {
         url1 = $("#recDetails").attr("u-names-url");  // get the url of the `load_courses` view
-        uid = $(user).val();  // get the selected programming ID from the HTML input
+        uid = $("#uname").val();  // get the selected programming ID from the HTML input
         $.ajax({                       // initialize an AJAX request
             url: url1,                    // set the url of the request (= localhost:8000/load-courses/)
             data: {
                 'uid': uid        // add the programming id to the GET parameters
             },
-            success: function (data) {   // `data` is the return of the `load_courses` view function
+            success: function (data){   // `data` is the return of the `load_courses` view function
                 $("#utasks").html(data);  // replace the contents of the course input with the data that came from the server
+                url2 = $("#recDetails").attr("video-path-url");  // get the url of the `load_courses` view
+                tid = $("#utasks").val();  // get the selected programming ID from the HTML input
+
+                $.ajax({                       // initialize an AJAX request
+                    url: url2,                    // set the url of the request (= localhost:8000/load-courses/)
+                    data: {
+                        'uid': uid,
+                        'tid': tid        // add the programming id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_courses` view function
+                        $("#vplay").html(data);  // replace the contents of the course input with the data that came from the server
+                    }
+                });
             }
         });
     });
 
     $("#utasks").change(function () {
         url2 = $("#recDetails").attr("video-path-url");  // get the url of the `load_courses` view
-        uid = $(user).val();  // get the selected programming ID from the HTML input
-        tid = $(task).val();  // get the selected programming ID from the HTML input
+        uid = $("#uname").val();  // get the selected programming ID from the HTML input
+        tid = $("#utasks").val();  // get the selected programming ID from the HTML input
         $.ajax({                       // initialize an AJAX request
             url: url2,                    // set the url of the request (= localhost:8000/load-courses/)
             data: {

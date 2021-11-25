@@ -60,7 +60,7 @@
 <script>
 	var user = $('#uname');
 	var url = $("#recDetails").attr("u-names-url");
-	var uid = $(uname).val();  // get the selected programming ID from the HTML input
+	var uid = $(user).val();  // get the selected programming ID from the HTML input
 	$.ajax({                       // initialize an AJAX request
 		url: url,                    // set the url of the request (= localhost:8000/load-courses/)
 		data: {
@@ -73,7 +73,7 @@
 
 	$("#uname").change(function () {
 		var url = $("#recDetails").attr("u-names-url");  // get the url of the `load_courses` view
-		var uid = $(uname).val();  // get the selected programming ID from the HTML input
+		var uid = $(user).val();  // get the selected programming ID from the HTML input
 		$.ajax({                       // initialize an AJAX request
 			url: url,                    // set the url of the request (= localhost:8000/load-courses/)
 			data: {

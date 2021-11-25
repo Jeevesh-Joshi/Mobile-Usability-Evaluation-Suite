@@ -49,14 +49,12 @@ def project_register(request):
         desc = request.POST.get('desc','default')
         ptasks = request.POST.get('projtasks','default')
 
-        print(name,desc,ptasks)
         proj = Projects(name=name,description=desc)
         proj.save()
 
         proj = Projects.objects.filter(name=name)[0]
 
         tasks_lists = list(ptasks.split(","))
-        print(tasks_lists)
         for task in tasks_lists:
             t = Tasks(project=proj,name=task)
             t.save()
@@ -163,7 +161,6 @@ def record_status(request):
             return JsonResponse({"result":"started"})
         else:
             video_camera.stop_record()
-            print(jsons)
             path = "MUES/static/Recordings/"+jsons["vname"]+".mp4"
             user = Users.objects.filter(id=jsons["uid"])[0]
             task = Tasks.objects.filter(id=jsons["tid"])[0]
