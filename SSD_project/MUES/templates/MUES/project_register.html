@@ -1,10 +1,10 @@
 {% extends 'MUES/base.html' %}
 
 {% block body %}
-<div class="container py-5" style="background-color: rgb(171, 189, 248);">
+<div class="container py-5 " style="background-color: rgb(171, 189, 248);">
     <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
-    <div>
-        <form id="projectDetails" class="rounded bg-primary p-4 text-light" method="post" action="project_register">
+    <div class="rounded" style="background-color: #682d59;">
+        <form id="projectDetails" class="rounded p-4 text-light" method="post" action="project_register">
             <h3 class="text-center mb-4">Project Registration</h3>
             {% csrf_token %}
             <div class="form-group">
@@ -24,7 +24,7 @@
                     rows="4"></textarea>
                 <p><small class="text-light">Ensure tasks are comma separated.</small></p>
             </div>
-            <button id="p" type="submit" class="btn btn-success my-4">
+            <button id="p" type="submit" class="btn btn-warning my-4">
                 Add Project
             </button>
         </form>

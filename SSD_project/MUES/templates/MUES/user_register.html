@@ -4,7 +4,7 @@
 <div class="container py-5" style="background-color: rgb(171, 189, 248);">
   <h1 class="text-center text-black m-5">Mobile Usability Evaluation Suite</h1>
   <div>
-    <form id="userDetails" class="rounded p-4 bg-dark text-light" method="post" action="user_register"
+    <form id="userDetails" class="rounded p-4 text-light" style="background-color: #5ba39d;" method="post" action="user_register"
       proj-names-url="{% url 'ajax_load_tasks' %}">
       <h3 class="text-center mb-4">User Registration</h3>
       {% csrf_token %}
@@ -15,7 +15,7 @@
       </div>
       <div class="form-group">
         <label for="age">Age: </label>
-        <input type="number" class="form-control" name="userage" placeholder="Age" aria-label="Age" id="age" />
+        <input type="number" class="form-control" name="userage" placeholder="Age" aria-label="Age" id="age"/>
       </div>
       <div class="form-group">
         <label for="gender">Gender: </label>
@@ -48,14 +48,14 @@
 
       </div>
 
-      <button id="s" type="submit" class="btn btn-success my-4">
+      <button id="s" type="submit" class="btn btn-warning my-4">
         Add User
       </button>
     </form>
   </div>
   <hr width="100%" class="bg-black">
   <div class="mt-2 bg-info rounded p-3">
-    <h3 class="text-center text-light mt-2">List of Users</h3>
+    <h3 class="text-center text-light mt-2">Registered Users</h3>
     <table class="table text-center table-primary table-sm mt-5 mb-0">
       <thead>
         <tr>

@@ -13,8 +13,8 @@ downloadLink.style.display = "none";
 buttonStop.disabled = true;
 
 buttonRecord.onclick = function(event){
-    event.preventDefault();
     console.log("start");
+    event.preventDefault();
     token1 = uname.options[uname.selectedIndex].getAttribute("data-uname");
     token2 = utasks.options[utasks.selectedIndex].getAttribute("data-tname");
     video_name = token1+"_"+token2;
@@ -55,7 +55,6 @@ buttonStop.onclick = function() {
             // enable download link
             video_name = token1+"_"+token2;
             downloadLink.innerHTML = "Save";
-            // downloadLink.href = "/static/video_name.mp4";
             downloadLink.href = `MUES/static/Recordings/${video_name}.mp4`;
         }
     }

@@ -25,31 +25,29 @@
 					</select>
 				</div>
 			</div>
-			<div id="vid-recorder">
+			<div id="vid-recorder" class="px-3">
 				<h3 class="text-center my-3">Camera Output</h3>
-				<img id="video" class="mt-2 w-100" style="height: 30vw;" src="{% url 'video_viewer' %}">
-				<!-- <video src="{% url 'video_viewer' %}" style="height: 30vw; background-color: black;"> -->
-				<!-- </video> -->
+				<img id="video" class="mt-2 mb-2 w-100 rounded" style="height: 34vw;" src="{% url 'video_viewer' %}" alt="No Camera Attached">
 
-				<div class="p-3 mb-2 text-danger text-center" id="vid-record-status">
+				<!-- <div class="p-3 mb-2 text-danger text-center" id="vid-record-status">
 					Click the "Start"
 					button to start recording
-				</div>
+				</div> -->
 
-				<div id="controlbtns" class="text-center">
+				<div id="controlbtns" class="text-center mt-4 mb-4">
 
 					<!-- This button will start the video recording -->
-					<button class="btn btn-primary" type="button" id="record">
+					<button class="btn btn-success" type="button" id="record">
 						Start
 					</button>
 
 					<!-- This button will stop the video recording -->
-					<button class="btn btn-success" type="button" id="stop">
+					<button class="btn btn-danger" type="button" id="stop">
 						Stop
 					</button>
 
 					<!-- <a type="submit" class="btn btn-danger" id="download"></a> -->
-					<button type="submit" class="btn btn-danger" id="download"></button>
+					<button type="submit" class="btn btn-primary" id="download"></button>
 				</div>
 			</div>
 		</form>

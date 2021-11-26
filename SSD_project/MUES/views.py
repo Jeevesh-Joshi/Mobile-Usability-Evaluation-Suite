@@ -112,10 +112,11 @@ def send_mail(request):
     data = {"projects":projects}
     if request.method == "GET":
         return render(request, 'MUES/send_mail.html',data)
-    else:
+    if request.method == "POST":
         pid = request.POST.get('proj')
         email = request.POST.get('email')
-        project = Projects.objects.filter(id = pid)
+        subject = request.POST.get('subject',"Evaluation Feedback")
+        message = request.POST.get('msg')
         users = Users.objects.filter(project__id = pid)
         jsons = json.loads(serializers.serialize('json', users))
         db = {'users_db':[]}
@@ -129,10 +130,9 @@ def send_mail(request):
             # <EMAIL> <PASSWORD>
             smtp.login('mues.iiith@gmail.com','ssd@fullstack')
 
-            subject='Evaluation Feedback'
-            body=db
+            json_data=db
 
-            msg=f'Subject: {subject}\n\n{body}'
+            msg=f'Subject: {subject}\n{message}\nFeedback Data\n\n{json_data}'
             
             # <SENDER EMAIL> <RECEIVER EMAIL> <MESSAGE>
             smtp.sendmail('mues.iiith@gmail.com',email,msg)
@@ -155,17 +155,15 @@ def record_status(request):
 
         status = jsons['status']
         if status == "true":
-            # video_name = request.POST.get('hiddenValue','NAN')
             vname = jsons["vname"]
             video_camera.start_record(vname)
             return JsonResponse({"result":"started"})
         else:
             video_camera.stop_record()
-            path = "MUES/static/Recordings/"+jsons["vname"]+".mp4"
+            path = "static/Recordings/"+jsons["vname"]+".mp4"
             user = Users.objects.filter(id=jsons["uid"])[0]
             task = Tasks.objects.filter(id=jsons["tid"])[0]
-            video = Videos(user=user,task=task,path=path)
-            video.save()
+            Videos.objects.get_or_create(user=user,task=task,path=path)
             return JsonResponse({"result":"stopped"})
 
 def video_stream():

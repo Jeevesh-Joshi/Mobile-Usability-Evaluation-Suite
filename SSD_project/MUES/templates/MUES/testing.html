@@ -8,11 +8,11 @@
 
         <div id="vplay" class="video_area mt-4">
             <!-- <video width="100%" height="500" controls>
-                    <source src="{% static 'Recodings/Jeevesh_Logout.webm' %}" type="video/webm">
+                    <source src="" type="video/webm">
                 </video>-->
-            <iframe width="100%" height="500" src="MUES/../static/Recordings/Yash_Login.mp4" frameborder="0"
+            <!-- <iframe width="100%" height="500" src="" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe> 
+                allowfullscreen></iframe>  -->
         </div>
         <form action="testing" method="post" id="recDetails" class="my-4" u-names-url="{% url 'ajax_load_utasks' %}" video-path-url="{% url 'ajax_load_videos' %}">
             {% csrf_token %}
@@ -33,10 +33,10 @@
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Add Notes</label>
                 <textarea name="problems" placeholder="Ensure that the notes are comma separated" class="form-control is-invalid"
-                    id="exampleFormControlTextarea1" rows="3" required></textarea>
+                    id="exampleFormControlTextarea1" rows="4" required></textarea>
                 <p><small class="text-danger">Enter all the notes separated by commas regarding a task at once!!</small></p>
             </div>
-            <input class="mt-2 btn btn-primary" type="submit" value="Add">
+            <button class="mt-2 btn btn-danger" type="submit">Add</button>
         </form>
     </div>
 </div>

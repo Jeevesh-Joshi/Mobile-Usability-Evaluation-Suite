@@ -7,9 +7,11 @@ class RecordingThread (threading.Thread):
         self.name = name
         self.isRunning = True
         self.cap = camera
-        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+        # fourcc = cv2.VideoWriter_fourcc(*'avc1')
+        # fourcc = cv2.VideoWriter_fourcc(*'H264')
+        # fourcc = cv2.VideoWriter_fourcc(*'MJPG')
         path = "MUES/static/Recordings/"+vname+".mp4"
-        self.out = cv2.VideoWriter(path,fourcc, 20.0, (640,480))
+        self.out = cv2.VideoWriter(path,-1, 20.0, (640,480))
 
     def run(self):
         while self.isRunning:
