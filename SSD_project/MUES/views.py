@@ -21,7 +21,7 @@ def user_register(request):
 
     if request.method == 'GET':
         return render(request,"MUES/user_register.html",data)
-    else:
+    elif request.method == 'POST':
         name = request.POST.get('username','default')
         proj_id = request.POST.get('projid','default')
         age = request.POST.get('userage','default')
@@ -44,7 +44,7 @@ def load_ptasks(request):
 def project_register(request):
     if request.method == 'GET':
         return render(request,"MUES/project_register.html")
-    else:
+    elif request.method == 'POST':
         name = request.POST.get('projectname','default')
         desc = request.POST.get('desc','default')
         ptasks = request.POST.get('projtasks','default')
@@ -71,7 +71,7 @@ def recording(request):
 
     if request.method == 'GET':
         return render(request,"MUES/recording.html",data)
-    if request.method == 'POST':
+    elif request.method == 'POST':
         # u_id = request.POST.get('uname')
         # t_id = request.POST.get('utasks')
         return render(request,"MUES/recording.html",data)
@@ -112,7 +112,7 @@ def send_mail(request):
     data = {"projects":projects}
     if request.method == "GET":
         return render(request, 'MUES/send_mail.html',data)
-    if request.method == "POST":
+    elif request.method == "POST":
         pid = request.POST.get('proj')
         email = request.POST.get('email')
         subject = request.POST.get('subject',"Evaluation Feedback")

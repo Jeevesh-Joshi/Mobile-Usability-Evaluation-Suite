@@ -14,6 +14,7 @@ class RecordingThread (threading.Thread):
         self.out = cv2.VideoWriter(path,-1, 20.0, (640,480))
 
     def run(self):
+        ret, frame = self.cap.read()
         while self.isRunning:
             ret, frame = self.cap.read()
             if ret:
